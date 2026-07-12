@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Product Manager — Polo District</title>
+    <meta name="robots" content="noindex, nofollow" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <!-- Login gate -->
+    <div id="adminLock" class="admin-lock">
+      <form id="loginForm" class="admin-lock-box">
+        <span class="pill">✦ Private</span>
+        <h2 class="display-sm" style="margin-top:0.75rem;">Product Manager</h2>
+        <p class="lede" style="margin-top:0.5rem;">Sign in with your admin account.</p>
+        <input id="loginEmail" type="email" placeholder="Email" autocomplete="username" autofocus />
+        <input id="loginPassword" type="password" placeholder="Password" autocomplete="current-password" />
+        <p id="loginError" class="admin-lock-error"></p>
+        <button type="submit" class="btn btn-gold btn-block" style="margin-top:0.5rem;">Sign in</button>
+      </form>
+    </div>
+
+    <div id="adminBody" class="admin-body" hidden>
+      <div style="display:flex; justify-content:space-between; align-items:center;">
+        <div>
+          <span class="pill">✦ Admin</span>
+          <h1 class="display-sm gold-text" style="margin-top:0.75rem;">Product Manager</h1>
+        </div>
+        <button id="logoutBtn" class="btn btn-ghost btn-sm">Sign out</button>
+      </div>
+      <p class="lede" style="margin-left:0;">
+        Changes here go live on the storefront immediately — there's nothing
+        to upload or re-deploy. This page is not linked anywhere on the
+        storefront.
+      </p>
+
+      <!-- Add / edit form -->
+      <div class="card" style="margin-top:2rem;">
+        <header class="card-head"><h2 id="formTitle">Add a product</h2></header>
+        <form id="productForm" class="fields two">
+          <label><span>Product name</span><input id="pName" type="text" placeholder="e.g. Signature Gold-Crest Polo" /></label>
+          <label><span>Category</span><input id="pCategory" type="text" placeholder="e.g. Polos" /></label>
+          <label><span>Price (₦ NGN)</span><input id="pPrice" type="number" min="0" placeholder="e.g. 85000" /></label>
+          <label class="full">
+            <span>Product photo</span>
+            <input id="pImageFile" type="file" accept="image/*" />
+          </label>
+          <label class="full">
+            <span>...or paste an existing image URL instead</span>
+            <input id="pImageUrl" type="text" placeholder="https://..." />
+          </label>
+          <p id="formError" class="admin-lock-error full" style="margin:0;"></p>
+          <div class="full" style="display:flex; gap:0.75rem; align-items:center;">
+            <button id="submitBtn" type="submit" class="btn btn-gold">Add product</button>
+            <button id="cancelEditBtn" type="button" class="btn btn-ghost" hidden>Cancel edit</button>
+            <span id="savingMsg" class="lede" style="margin:0;"></span>
+          </div>
+        </form>
+      </div>
+
+      <!-- Product list -->
+      <div class="card" style="margin-top:1.25rem;">
+        <header class="card-head"><h2>Current products</h2></header>
+        <table class="admin-table">
+          <thead>
+            <tr><th>Image</th><th>Name</th><th>Category</th><th>Price</th><th></th></tr>
+          </thead>
+          <tbody id="productTbody"></tbody>
+        </table>
+        <p id="tableEmpty" class="admin-empty">No products yet — add your first one above.</p>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase-config.js"></script>
+    <script src="admin.js"></script>
+  </body>
+</html>

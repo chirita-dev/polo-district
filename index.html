@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Polo District — Timeless Style. Premium Quality.</title>
+    <meta
+      name="description"
+      content="Polo District is a luxury menswear house crafting timeless polos, refined tailoring, and premium essentials."
+    />
+    <meta name="theme-color" content="#0B0B0B" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <!-- ============ HEADER ============ -->
+    <header class="site-header">
+      <div class="header-inner">
+        <div class="header-left">
+          <button id="menuBtn" class="icon-btn" aria-label="Open menu">
+            <!-- menu -->
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+          </button>
+          <a href="#" class="brand" aria-label="Polo District home">POLO&nbsp;DISTRICT</a>
+        </div>
+        <div class="currency-wrap">
+          <select id="currency" class="currency" aria-label="Currency">
+            <option value="NGN">NGN</option>
+            <option value="USD">USD</option>
+            <option value="GBP">GBP</option>
+            <option value="EUR">EUR</option>
+          </select>
+          <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>
+        </div>
+        <div class="header-right">
+          <button id="cartBtn" class="icon-btn cart-btn" aria-label="Cart">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+            <span id="cartBadge" class="badge" hidden>0</span>
+          </button>
+          <button class="icon-btn" aria-label="Account">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>
+          </button>
+        </div>
+      </div>
+    </header>
+    <!-- ============ SEARCH ============ -->
+    <div class="wrap search-wrap">
+      <label class="search">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+        <input id="search" type="search" placeholder="Search products..." />
+      </label>
+    </div>
+    <!-- ============ HERO ============ -->
+    <section class="wrap hero">
+      <span class="pill">✦ House of Polo District</span>
+      <h1 class="display">
+        <span class="gold-text">Timeless Style.</span><br />
+        Premium Quality.
+      </h1>
+      <p class="lede">
+        A private atelier of considered menswear — polos, tailoring and
+        essentials crafted for the modern gentleman.
+      </p>
+    </section>
+    <!-- ============ SHOP / EMPTY STATE ============ -->
+    <section id="shop" class="wrap shop">
+      <div class="section-head">
+        <h2 class="display-sm">The Collection</h2>
+        <span id="count" class="eyebrow">0 pieces</span>
+      </div>
+      <div id="grid" class="grid" hidden></div>
+      <div id="empty" class="empty">
+        <div class="empty-grid" aria-hidden="true">
+          <div></div><div></div><div></div><div></div>
+        </div>
+        <div class="empty-inner">
+          <span class="pill">✦ Atelier</span>
+          <h3 class="display gold-text">Collection Arriving Soon</h3>
+          <p id="emptyMsg" class="lede">
+            Our inaugural collection is in the final stages of production.
+            Join the list to be the first to receive it.
+          </p>
+          <div class="empty-cta">
+            <a href="#checkout" class="btn btn-gold">Preview Checkout →</a>
+            <a href="#" class="btn btn-ghost">Notify me</a>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- ============ CHECKOUT ============ -->
+    <section id="checkout" class="wrap checkout">
+      <a href="#" class="back">← Back to shop</a>
+      <h1 class="display gold-text">Checkout</h1>
+      <p class="lede">Complete your order — every piece is prepared and shipped with care.</p>
+      <div class="checkout-grid">
+        <div class="checkout-main">
+          <!-- Delivery -->
+          <div class="card">
+            <header class="card-head"><span class="step">01</span><h2>Delivery Options</h2></header>
+            <div class="options">
+              <button type="button" class="option is-active" data-group="delivery" data-value="home">
+                <span class="option-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/></svg>
+                </span>
+                <span class="option-body">
+                  <strong>Home delivery</strong>
+                  <small>Doorstep, signature-required</small>
+                </span>
+                <span class="radio"></span>
+              </button>
+              <button type="button" class="option" data-group="delivery" data-value="pickup">
+                <span class="option-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l1-5h16l1 5"/><path d="M4 9v11h16V9"/><path d="M9 20v-6h6v6"/></svg>
+                </span>
+                <span class="option-body">
+                  <strong>Pickup from store</strong>
+                  <small>Collect at the atelier</small>
+                </span>
+                <span class="radio"></span>
+              </button>
+            </div>
+          </div>
+          <!-- Customer -->
+          <div class="card">
+            <header class="card-head"><span class="step">02</span><h2>Customer Details</h2></header>
+            <div class="fields two">
+              <label><span>First name <em>*</em></span><input id="firstName" type="text" placeholder="e.g. Adaora" /></label>
+              <label><span>Last name <em>*</em></span><input id="lastName" type="text" placeholder="e.g. Okafor" /></label>
+              <label class="full"><span>Email address <em>*</em></span><input id="email" type="email" placeholder="you@example.com" /></label>
+              <label class="full"><span>Phone number <em>*</em></span><input id="phone" type="tel" placeholder="e.g. 08012345678" /></label>
+            </div>
+          </div>
+          <!-- Address -->
+          <div class="card">
+            <header class="card-head"><span class="step">03</span><h2>Address Details</h2></header>
+            <div class="fields three">
+              <label><span>Country</span>
+                <select id="country"></select>
+              </label>
+              <label><span>State</span>
+                <select id="state"><option value="">Select state</option></select>
+              </label>
+              <label><span>Region</span>
+                <select id="region" disabled><option value="">Select region</option></select>
+              </label>
+            </div>
+          </div>
+          <!-- Message -->
+          <blockquote class="message">
+            “Thank you for trusting Polo District. We sincerely appreciate your
+            patronage. Timeless Style, Premium Quality.”
+          </blockquote>
+          <!-- Payment -->
+          <div class="card">
+            <header class="card-head"><span class="step">04</span><h2>Payment Method</h2></header>
+            <div class="options" id="paymentOptions">
+              <button type="button" class="option is-active" data-group="payment" data-value="paystack">
+                <span class="option-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 4 5v6c0 5 3.5 9 8 11 4.5-2 8-6 8-11V5Z"/></svg>
+                </span>
+                <span class="option-body"><strong>Paystack</strong><small>Card, bank, USSD</small></span>
+                <span class="radio"></span>
+              </button>
+            </div>
+          </div>
+        </div>
+        <!-- Summary -->
+        <aside class="summary">
+          <h3>Order Summary</h3>
+          <div class="row"><span>Sub-total</span><span id="subtotal">₦0</span></div>
+          <div class="row"><span>Delivery fee</span><span id="fee">₦0</span></div>
+          <div class="row" id="discountRow" hidden><span>Discount</span><span id="discountVal" class="gold-text">-₦0</span></div>
+          <div class="discount">
+            <div class="disc-input">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12 12 4H4v8l8 8Z"/><circle cx="8" cy="8" r="1.5"/></svg>
+              <input id="discount" placeholder="Enter discount code" />
+            </div>
+            <button id="applyBtn" class="btn btn-ghost btn-sm">Apply</button>
+          </div>
+          <hr />
+          <div class="row total">
+            <span class="eyebrow">Total</span>
+            <span id="total" class="gold-text total-val">₦0</span>
+          </div>
+          <p id="checkoutError" class="admin-lock-error" style="margin:0;"></p>
+          <button id="payNowBtn" class="btn btn-gold btn-block">Pay Now</button>
+          <p class="secure">✦ Secure checkout</p>
+        </aside>
+      </div>
+    </section>
+    <footer class="site-footer">
+      © <span id="year"></span> Polo District — Timeless Style. Premium Quality.
+    </footer>
+    <!-- ============ WHATSAPP WIDGET ============ -->
+    <a
+      href="https://wa.me/2348000000000?text=Hello%20Polo%20District%2C%20I%27d%20like%20to%20enquire."
+      target="_blank" rel="noopener"
+      class="whatsapp" aria-label="Chat on WhatsApp"
+    >
+      <svg viewBox="0 0 24 24" fill="white"><path d="M20.5 3.5A11 11 0 0 0 3.6 17.3L2 22l4.8-1.5A11 11 0 1 0 20.5 3.5Zm-8.5 17a9 9 0 0 1-4.6-1.3l-.3-.2-2.9.9.9-2.8-.2-.3A9 9 0 1 1 12 20.5Zm5.2-6.7c-.3-.1-1.7-.8-1.9-.9-.3-.1-.5-.1-.7.2s-.8.9-1 1.1c-.2.2-.4.2-.7.1-.3-.1-1.2-.5-2.2-1.4-.8-.7-1.4-1.6-1.5-1.9-.2-.3 0-.5.1-.6.1-.1.3-.4.4-.5.1-.2.2-.3.3-.5.1-.2 0-.4 0-.6 0-.1-.7-1.7-1-2.3-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 3 1.2 3.2c.1.2 2.1 3.3 5.2 4.6.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.7-.7 2-1.4.2-.7.2-1.2.2-1.4-.1-.1-.3-.2-.6-.3Z"/></svg>
+      <span class="wa-badge">1</span>
+    </a>
+    <!-- ============ DRAWER ============ -->
+    <div id="drawer" class="drawer" hidden>
+      <div class="drawer-panel">
+        <div class="drawer-head">
+          <span class="brand">POLO DISTRICT</span>
+          <button id="drawerClose" class="icon-btn" aria-label="Close">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+          </button>
+        </div>
+        <nav class="drawer-nav">
+          <a href="#" data-shop-all>Shop All</a>
+          <div id="drawerCategories"></div>
+          <a href="#">Contact</a>
+        </nav>
+        <p class="eyebrow drawer-foot">Timeless Style. Premium Quality.</p>
+      </div>
+    </div>
+    <!-- ============ CART DRAWER ============ -->
+    <div id="cartDrawer" class="drawer" hidden>
+      <div class="drawer-panel cart-panel">
+        <div class="drawer-head">
+          <span class="brand">Your Bag</span>
+          <button id="cartClose" class="icon-btn" aria-label="Close">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+          </button>
+        </div>
+        <div id="cartItems" class="cart-items"></div>
+        <div class="cart-footer">
+          <div class="row"><span class="eyebrow">Subtotal</span><span id="cartSubtotal" class="gold-text">₦0</span></div>
+          <a href="#checkout" id="cartCheckoutBtn" class="btn btn-gold btn-block" style="margin-top:0;">Go to checkout</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ ORDER CONFIRMATION MODAL ============ -->
+    <div id="orderModal" class="drawer" hidden>
+      <div class="drawer-panel" style="margin:auto; height:auto; max-width:380px; border-radius:16px;">
+        <div id="orderModalBody" class="order-confirm"></div>
+        <button id="orderModalClose" class="btn btn-ghost btn-block">Close</button>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase-config.js"></script>
+    <script src="payments-config.js"></script>
+    <script src="https://js.paystack.co/v2/inline.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
