@@ -104,13 +104,20 @@ function renderShop() {
     grid.innerHTML = items
       .map(
         (p) => `
-        <article class="product">
-          <img src="${p.image}" alt="${escapeHtml(p.name)}" />
+        <article class="product${p.in_stock === false ? " out-of-stock" : ""}">
+          <div class="product-img-wrap">
+            <img src="${p.image}" alt="${escapeHtml(p.name)}" />
+            ${p.in_stock === false ? '<span class="stock-badge">Out of Stock</span>' : ""}
+          </div>
           <div class="body">
             <p class="cat">${escapeHtml(p.category)}</p>
             <h3>${escapeHtml(p.name)}</h3>
             <p class="price">${formatPrice(p.price)}</p>
-            <button type="button" class="add-btn" data-id="${p.id}">Add to bag</button>
+            ${
+              p.in_stock === false
+                ? `<button type="button" class="add-btn" disabled>Out of stock</button>`
+                : `<button type="button" class="add-btn" data-id="${p.id}">Add to bag</button>`
+            }
           </div>
         </article>`
       )
@@ -139,7 +146,7 @@ function cartSubtotal() {
 }
 function addToCart(productId) {
   const p = LIVE_PRODUCTS.find((x) => x.id === productId);
-  if (!p) return;
+  if (!p || p.in_stock === false) return;
   const existing = cart.find((x) => x.id === productId);
   if (existing) {
     existing.qty += 1;

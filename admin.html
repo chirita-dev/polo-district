@@ -48,6 +48,10 @@
           <label><span>Product name</span><input id="pName" type="text" placeholder="e.g. Signature Gold-Crest Polo" /></label>
           <label><span>Category</span><input id="pCategory" type="text" placeholder="e.g. Polos" /></label>
           <label><span>Price (₦ NGN)</span><input id="pPrice" type="number" min="0" placeholder="e.g. 85000" /></label>
+          <label class="full" style="display:flex; align-items:center; gap:0.6rem;">
+            <input id="pInStock" type="checkbox" checked style="width:18px; height:18px; margin:0;" />
+            <span style="margin:0; text-transform:none; letter-spacing:normal; font-size:0.9rem; color:var(--text);">In stock</span>
+          </label>
           <label class="full">
             <span>Product photo</span>
             <input id="pImageFile" type="file" accept="image/*" />
@@ -70,7 +74,7 @@
         <header class="card-head"><h2>Current products</h2></header>
         <table class="admin-table">
           <thead>
-            <tr><th>Image</th><th>Name</th><th>Category</th><th>Price</th><th></th></tr>
+            <tr><th>Image</th><th>Name</th><th>Category</th><th>Price</th><th>Stock</th><th></th></tr>
           </thead>
           <tbody id="productTbody"></tbody>
         </table>

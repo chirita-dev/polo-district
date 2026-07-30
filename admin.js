@@ -74,6 +74,13 @@ function renderTable() {
         <td>${escapeHtml(p.category)}</td>
         <td>₦${Number(p.price).toLocaleString()}</td>
         <td>
+          <button data-action="toggle-stock" data-id="${p.id}" style="background:none; border:none; cursor:pointer; padding:0;">
+            <span class="pill" style="${p.in_stock ? "" : "border-color:#ef4444; background:rgba(239,68,68,0.08); color:#ef4444;"}">
+              ${p.in_stock ? "In stock" : "Out of stock"}
+            </span>
+          </button>
+        </td>
+        <td>
           <div class="admin-row-actions">
             <button data-action="edit" data-id="${p.id}">Edit</button>
             <button data-action="remove" data-id="${p.id}">Remove</button>
@@ -96,6 +103,7 @@ function resetForm() {
   $("#pName").value = "";
   $("#pCategory").value = "";
   $("#pPrice").value = "";
+  $("#pInStock").checked = true;
   $("#pImageFile").value = "";
   $("#pImageUrl").value = "";
   $("#formTitle").textContent = "Add a product";
@@ -111,6 +119,7 @@ function fillFormForEdit(id) {
   $("#pName").value = p.name;
   $("#pCategory").value = p.category;
   $("#pPrice").value = p.price;
+  $("#pInStock").checked = p.in_stock !== false;
   $("#pImageFile").value = "";
   $("#pImageUrl").value = p.image;
   $("#formTitle").textContent = `Editing ${p.name}`;
@@ -155,16 +164,17 @@ async function handleSubmit(e) {
 
   try {
     const image = await uploadImageIfNeeded();
+    const in_stock = $("#pInStock").checked;
     if (editingId) {
       const { error } = await supabaseClient
         .from("products")
-        .update({ name, category, price, image })
+        .update({ name, category, price, image, in_stock })
         .eq("id", editingId);
       if (error) throw error;
     } else {
       const { error } = await supabaseClient
         .from("products")
-        .insert([{ name, category, price, image }]);
+        .insert([{ name, category, price, image, in_stock }]);
       if (error) throw error;
     }
     await loadProducts();
@@ -183,6 +193,18 @@ async function handleTableClick(e) {
   const id = btn.dataset.id;
   if (btn.dataset.action === "edit") {
     fillFormForEdit(id);
+  } else if (btn.dataset.action === "toggle-stock") {
+    const p = products.find((x) => x.id === id);
+    if (!p) return;
+    const { error } = await supabaseClient
+      .from("products")
+      .update({ in_stock: !p.in_stock })
+      .eq("id", id);
+    if (error) {
+      alert("Couldn't update stock status: " + error.message);
+      return;
+    }
+    await loadProducts();
   } else if (btn.dataset.action === "remove") {
     if (!confirm("Remove this product from the shop?")) return;
     const { error } = await supabaseClient.from("products").delete().eq("id", id);

@@ -1,13 +1,15 @@
 /* ==================================================
    POLO DISTRICT — payments config
-   Paste your Paystack PUBLIC key below (Settings ->
-   API Keys & Webhooks in your Paystack dashboard).
-   Use the pk_test_... key while testing, switch to
-   pk_live_... only once you're ready to take real
-   payments. NEVER put your SECRET key in this file —
-   it must never appear in any file your browser loads.
+   This holds your Paystack PUBLIC key only. Never put
+   your SECRET key here or in any other file the browser
+   loads — it must stay inside Paystack's dashboard only.
    ================================================== */
-const PAYSTACK_PUBLIC_KEY = "PASTE_YOUR_PAYSTACK_PUBLIC_KEY_HERE";
+const PAYSTACK_PUBLIC_KEY = "pk_live_b9a82a72c868dca93afc2ec0d02328cd02d4d116";
+
+/* This is a LIVE key — real payments will be charged to real
+   cards from this point on. Make sure you've fully tested the
+   checkout flow (cart, Paystack popup, order saved in Supabase)
+   with a test key before relying on this in production. */
 
 /* All charges are processed in NGN (kobo), regardless of
    which currency the shopper has selected for browsing. */
