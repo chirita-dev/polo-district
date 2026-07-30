@@ -9,6 +9,16 @@
       content="Polo District is a luxury menswear house crafting timeless polos, refined tailoring, and premium essentials."
     />
     <meta name="theme-color" content="#0B0B0B" />
+    <!-- Apply saved theme before first paint, so there's no flash of the wrong theme -->
+    <script>
+      (function () {
+        try {
+          if (localStorage.getItem("pd_theme") === "light") {
+            document.documentElement.setAttribute("data-theme", "light");
+          }
+        } catch (e) {}
+      })();
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -38,12 +48,13 @@
           <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>
         </div>
         <div class="header-right">
+          <button id="themeToggle" class="icon-btn theme-toggle" aria-label="Switch to light mode">
+            <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+            <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z"/></svg>
+          </button>
           <button id="cartBtn" class="icon-btn cart-btn" aria-label="Cart">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
             <span id="cartBadge" class="badge" hidden>0</span>
-          </button>
-          <button class="icon-btn" aria-label="Account">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>
           </button>
         </div>
       </div>
@@ -198,7 +209,7 @@
     </footer>
     <!-- ============ WHATSAPP WIDGET ============ -->
     <a
-      href="https://wa.me/2348000000000?text=Hello%20Polo%20District%2C%20I%27d%20like%20to%20enquire."
+      href="https://wa.me/2349046981701?text=Hello%20Polo%20District%2C%20I%27d%20like%20to%20enquire."
       target="_blank" rel="noopener"
       class="whatsapp" aria-label="Chat on WhatsApp"
     >
@@ -217,11 +228,12 @@
         <nav class="drawer-nav">
           <a href="#" data-shop-all>Shop All</a>
           <div id="drawerCategories"></div>
-          <a href="#">Contact</a>
+          <a href="https://wa.me/2349046981701?text=Hello%20Polo%20District%2C%20I%27d%20like%20to%20enquire." target="_blank" rel="noopener">Contact</a>
         </nav>
         <p class="eyebrow drawer-foot">Timeless Style. Premium Quality.</p>
       </div>
     </div>
+
     <!-- ============ CART DRAWER ============ -->
     <div id="cartDrawer" class="drawer" hidden>
       <div class="drawer-panel cart-panel">

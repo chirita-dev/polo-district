@@ -32,6 +32,7 @@ const COUNTRIES = {
   },
 };
 const CART_KEY = "pd_cart";
+const THEME_KEY = "pd_theme";
 /* ---------- State ---------- */
 const state = {
   currency: "NGN",
@@ -360,12 +361,36 @@ async function handlePayNow() {
   payWithPaystack();
 }
 
+/* ==================================================
+   THEME TOGGLE
+   ================================================== */
+function applyThemeIcon() {
+  const btn = $("#themeToggle");
+  const isLight = document.documentElement.getAttribute("data-theme") === "light";
+  btn.setAttribute("aria-label", isLight ? "Switch to dark mode" : "Switch to light mode");
+}
+function initThemeToggle() {
+  applyThemeIcon();
+  $("#themeToggle").addEventListener("click", () => {
+    const isLight = document.documentElement.getAttribute("data-theme") === "light";
+    if (isLight) {
+      document.documentElement.removeAttribute("data-theme");
+      localStorage.setItem(THEME_KEY, "dark");
+    } else {
+      document.documentElement.setAttribute("data-theme", "light");
+      localStorage.setItem(THEME_KEY, "light");
+    }
+    applyThemeIcon();
+  });
+}
+
 /* ---------- Wire events ---------- */
 function init() {
   $("#year").textContent = new Date().getFullYear();
   loadCart();
   renderCartBadge();
   renderCartDrawer();
+  initThemeToggle();
 
   // Currency
   $("#currency").addEventListener("change", (e) => {
@@ -382,7 +407,7 @@ function init() {
   // Add to cart (event delegation on the grid)
   $("#grid").addEventListener("click", (e) => {
     const btn = e.target.closest(".add-btn");
-    if (!btn) return;
+    if (!btn || btn.disabled) return;
     addToCart(btn.dataset.id);
     btn.textContent = "Added ✓";
     btn.classList.add("added");
@@ -415,7 +440,7 @@ function init() {
   $("#drawer").addEventListener("click", (e) => {
     if (e.target.id === "drawer") $("#drawer").hidden = true;
   });
-  // "Shop All" resets the search filter
+  // "Shop All" / category links inside the drawer
   $(".drawer-nav").addEventListener("click", (e) => {
     const shopAllLink = e.target.closest("[data-shop-all]");
     const categoryLink = e.target.closest("[data-category]");
