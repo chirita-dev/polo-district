@@ -216,18 +216,38 @@ function renderCartDrawer() {
   $("#cartSubtotal").textContent = formatPrice(cartSubtotal());
 }
 
+/* ==================================================
+   ORDER TOTALS (subtotal, delivery, discount, processing fee)
+   ================================================== */
+function computeProcessingFee(orderAmount) {
+  if (orderAmount <= 0) return 0;
+  let fee = orderAmount * PAYSTACK_FEE_RATE;
+  if (orderAmount > PAYSTACK_FEE_WAIVER_BELOW) fee += PAYSTACK_FLAT_FEE;
+  fee = Math.min(fee, PAYSTACK_FEE_CAP);
+  const vat = fee * PAYSTACK_VAT_RATE;
+  return Math.round(fee + vat);
+}
+function getOrderTotals() {
+  const subtotal = cartSubtotal();
+  const deliveryFee = state.delivery === "home" && subtotal > 0 ? 5000 : 0;
+  const discount = state.discount;
+  const orderAmount = Math.max(0, subtotal + deliveryFee - discount);
+  const processingFee = computeProcessingFee(orderAmount);
+  const total = orderAmount + processingFee;
+  return { subtotal, deliveryFee, discount, orderAmount, processingFee, total };
+}
+
 /* ---------- Checkout summary ---------- */
 function renderSummary() {
-  const subtotal = cartSubtotal();
-  const fee = state.delivery === "home" && subtotal > 0 ? 5000 : 0;
-  const total = Math.max(0, subtotal + fee - state.discount);
-  $("#subtotal").textContent = formatPrice(subtotal);
-  $("#fee").textContent = formatPrice(fee);
-  $("#total").textContent = formatPrice(total);
+  const t = getOrderTotals();
+  $("#subtotal").textContent = formatPrice(t.subtotal);
+  $("#fee").textContent = formatPrice(t.deliveryFee);
+  $("#processingFee").textContent = formatPrice(t.processingFee);
+  $("#total").textContent = formatPrice(t.total);
   const row = $("#discountRow");
-  if (state.discount > 0) {
+  if (t.discount > 0) {
     row.hidden = false;
-    $("#discountVal").textContent = `- ${formatPrice(state.discount)}`;
+    $("#discountVal").textContent = `- ${formatPrice(t.discount)}`;
   } else {
     row.hidden = true;
   }
@@ -292,9 +312,7 @@ function validateCheckout() {
 }
 async function saveOrder({ reference, status }) {
   const c = getCustomerDetails();
-  const subtotal = cartSubtotal();
-  const fee = state.delivery === "home" && subtotal > 0 ? 5000 : 0;
-  const total = Math.max(0, subtotal + fee - state.discount);
+  const t = getOrderTotals();
   const { error } = await supabaseClient.from("orders").insert([{
     reference,
     customer_name: `${c.firstName} ${c.lastName}`,
@@ -306,10 +324,11 @@ async function saveOrder({ reference, status }) {
     state: c.state,
     region: c.region,
     items: cart,
-    subtotal,
-    delivery_fee: fee,
-    discount: state.discount,
-    total,
+    subtotal: t.subtotal,
+    delivery_fee: t.deliveryFee,
+    discount: t.discount,
+    processing_fee: t.processingFee,
+    total: t.total,
     status,
   }]);
   if (error) console.error("Could not save order:", error.message);
@@ -320,14 +339,14 @@ function showOrderModal(html) {
 }
 
 async function payWithPaystack() {
-  const total = Math.max(0, cartSubtotal() + (state.delivery === "home" ? 5000 : 0) - state.discount);
+  const t = getOrderTotals();
   const reference = generateReference();
   const c = getCustomerDetails();
   const paystackInstance = new PaystackPop();
   paystackInstance.newTransaction({
     key: PAYSTACK_PUBLIC_KEY,
     email: c.email,
-    amount: Math.round(total * 100), // kobo
+    amount: Math.round(t.total * 100), // kobo — already includes the processing fee
     ref: reference,
     metadata: {
       custom_fields: [
